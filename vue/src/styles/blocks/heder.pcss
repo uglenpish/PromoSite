@@ -1,0 +1,58 @@
+.heder{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 0;
+
+	.socials__list{
+		@include phones{
+			display: none;
+		}
+	}
+
+	.heder__menu{
+		@include tablets{
+			display: none;
+		}
+	}
+}
+
+.heder__socials{
+	display: flex;
+}
+
+.header__gam-menu{
+	display: none;
+	position: absolute;
+  right: -600px;
+  top: 0;
+  z-index: 5;
+  width: 325px;
+  transition: right .5s;
+  flex-direction: column;
+
+	@include tablets{
+		display: flex;
+	}
+
+	@include phones{
+		width: 100vw;
+	}
+
+	.gam-menu__close{
+		position: absolute;
+    right: 45px;
+    top: 50px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+	}
+}
+
+.header__gam-menu--opend{
+	right: 0;
+}
+

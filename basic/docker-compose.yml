@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  mysql-site:
+
+networks:
+  site-network:
+    driver: bridge
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: site-nginx
+    volumes:
+      - "./docker/nginx:/etc/nginx/conf.d"
+      - "./:/var/www/html"
+    ports:
+      - "8000:8000"
+      - "443:443"
+    networks:
+      - site-network
+    depends_on:
+      - php
+
+  php:
+    image: nanoninja/php-fpm:7.4.4
+    container_name: site-php
+    networks:
+      - site-network
+    volumes:
+      - "./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+      - "./:/var/www/html"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: site-mysql
+    networks:
+      - site-network
+    environment:
+      - MYSQL_DATABASE=site
+      - MYSQL_ROOT_PASSWORD=siteroot
+      - MYSQL_USER=site
+      - MYSQL_PASSWORD=site
+    ports:
+      - "33065:3306"
+    volumes:
+      - mysql-site:/var/lib/mysql
+      - "./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf"

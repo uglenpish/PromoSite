@@ -1,0 +1,59 @@
+.parallax-mount{
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	z-index: -1;
+
+	@include phones{
+		display: none;
+	}
+
+	&__layer{
+		min-width: 100%;
+		min-height: 100%;
+		background-position: 50% 50%;
+		background-size: cover;
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: translateY(0) translateZ(0);
+	}
+
+		&__layer--1{
+			background-image: url('~images/parallax/mount/sky.png');
+			z-index: 1;
+		}
+
+		&__layer--2{
+			background-image: url('~images/parallax/mount/mountain.png');
+			z-index: 2;
+		}
+
+		&__layer--3{
+			background-image: url('~images/parallax/mount/baloon.png');
+			z-index: 3;
+		}
+
+		&__layer--4{
+			background-image: url('~images/parallax/mount/white.png');
+			z-index: 4;
+		}
+
+		&__layer--5{
+			background-image: url('~images/parallax/mount/man.png');
+			z-index: 5;
+		}
+
+		&__layer--6{
+			background-image: url('~images/parallax/mount/mountain1.png');
+			z-index: 6;
+		}
+
+		&__layer--7{
+			background-image: url('~images/parallax/mount/cloud.png');
+			z-index: 7;
+		}
+	
+}

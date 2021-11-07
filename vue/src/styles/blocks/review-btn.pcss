@@ -1,0 +1,30 @@
+.review__btn{
+
+  .slider__arrow-btn {
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid #353e4e;
+    margin-right: 25px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+
+    &--prev {
+      .slider__arrow-icon {
+        transform: rotate(-180deg);
+      }
+    }
+
+    &--next {
+      .slider__arrow-icon {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  .slider__arrow-icon {
+    fill: currentColor;
+    opacity: 1;
+  }
+}

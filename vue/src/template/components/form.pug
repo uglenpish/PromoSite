@@ -1,0 +1,61 @@
+section.contacts#form
+  .container
+    h2.contacts__title.title Связаться со мной
+    form.form(
+      name='connectForm'
+      @submit.prevent="submitForm"
+    )
+      .form__row
+        label.form__block(:class="{error: !nameValid}")
+          .form__block-label Введите ваше имя
+          .form__block-wrap
+            +icon('user','form__block-icon')
+            .form__block-field
+              input(
+                placeholder="Иванов Иван"
+                type='text'
+                name='username'
+                autocomplete="off"
+                @input="validateName"
+                onFocus = "this.placeholder=''"
+              ).form__block-input#input-username
+          .error-tooltip {{nameError}}
+        label.form__block(:class="{error: !emailValid}")
+          .form__block-label Введите ваше email
+          .form__block-wrap
+            +icon('envelope','form__block-icon')
+            .form__block-field
+              input(
+                placeholder="example@mail.com"
+                type='email'
+                name='email'
+                autocomplete="off"
+                @input="validateEmail"
+                onFocus = "this.placeholder=''"
+              ).form__block-input#input-email
+          .error-tooltip {{emailError}}
+      .form__row.form__row--more-margin
+        label.form__block(:class="{error: !commentValid}")
+          .form__block-label Сообщение к письму
+          .form__block-wrap.form__block-wrap--align-top
+            +icon('message','form__block-icon')
+            .form__block-field
+              textarea(placeholder="Требуется ваша помощь в создании сайта. \nИнтересуют сроки и цена вопроса" rows="3"
+              name='comment'
+              onFocus = "this.placeholder=''"
+              @input="validateComment"
+            ).form__block-input.form__block-textarea
+          .error-tooltip {{commentError}}
+      .form__row
+        .form__buttons
+          button(
+            type="submit"
+            @click.prevent="submitForm"
+            name="btn-submit"
+          ).custom-btn Отправить
+  .overlay(:class="{disabled: overlayHidden}" @click="hideOverlay")
+    .overlay__container
+      .overlay__content
+        .overlay__title {{overlayMassege}}
+        .overlay__btn-wrap
+          .overlay__btn(@click="hideOverlay") Закрыть

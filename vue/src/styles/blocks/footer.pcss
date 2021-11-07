@@ -1,0 +1,149 @@
+.footer {
+   background-color: $footer;
+   padding: 90px 0;
+   color: rgba(255, 255, 255, 0.102);
+
+   &__container {
+      display: flex;
+
+      @include phones{
+         flex-direction: column;
+      }
+   }
+   &__column {
+      padding-right: 20px;
+      display: flex;
+      flex: 1;
+
+      @include phones{
+         margin-bottom: 45px;
+
+         &:last-child{
+            margin-bottom: 0;
+         }
+      }
+
+      &:last-child{
+         padding-right: 0;
+      }
+
+      @include desktop {
+         flex-direction: column;
+         flex: 0.6;
+      }
+   }
+   &__column_flex-col {
+      flex-direction: column;
+      flex: 2.5;
+
+      @include phones{
+         flex-direction: column;
+      }
+   }
+
+   &__row {
+      color: rgba(255, 255, 255, 0.302);
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+
+      @include tablets {
+         flex-direction: column;
+      }
+   }
+
+   &__copyright {
+      font-size: 48px;
+      line-height: 1;
+      white-space: nowrap;
+      font-weight: 500;
+      margin-right: 5%;
+      margin-bottom: 15px;
+   }
+
+   &__title {
+      min-width: 120px;
+      margin-right: 5%;
+   }
+
+   &__title-by-line {
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      color: #FFF;
+      margin-bottom: 15px;
+   }
+
+   &__title-link {
+      margin-top: 15px;
+      white-space: nowrap;
+   }
+
+   &__text-sig {
+      color: #fff;
+      margin-top: 20px;
+   }
+
+   &__nav {
+      max-width: 700px;
+      color: #fff;
+
+      .nav__list {
+         justify-content: flex-start;
+         flex-wrap: wrap;
+      }
+      .nav__item {
+         margin-right: 55px;
+
+        @include phones{
+            margin-bottom: 25px;
+         }
+      
+      }
+      .nav__link{
+         color: inherit !important;
+      }
+   }
+
+   &__socials {
+      margin-top: 15px;
+
+      .socials__item {
+         margin-right: 15px;
+
+         &:last-child {
+            margin-right: 0;
+         }
+      }
+
+      .socials__link {
+         @include circle(50px, 1px, 'initial');
+         position: relative;
+         display: block;
+
+         &:hover {
+            border-color: $main;
+         }
+      }
+
+      .socials__icon {
+         width: 30px !important;
+         height: 30px !important;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+      }
+   }   
+}
+
+.footer__column--modify {
+   flex-direction: column;
+}
+
+.footer__socials>.socials__list{
+         
+    @include phones{
+      display: flex;
+   }
+}

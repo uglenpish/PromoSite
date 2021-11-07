@@ -1,0 +1,47 @@
+include ./mixins.pug
+-var icons = ['insta', 'vk', 'github'];
+-var menu = ['Главная', 'Обо мне', 'Навыки', 'Работы', 'Отзывы', 'Связатся'];
+
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Portfolio | main page
+  body
+    include template/vigets
+    .wrapper
+      .welcome
+        include template/components/paralax-mount
+        include template/components/hero
+        include template/components/about
+        .triangles.triangles--section
+          svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__item.arrow
+            polygon(points="0,0 0,100 1000,100")
+          svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__item.arrow
+            polygon(points="1000,0 1000,100 0,100")
+      section.skills
+        .container.skills-container
+          .skills__decor
+            +image('content/bag.jpg', 'skills__decor-pic')
+          .skills__content
+            .skills__desc
+              h2.skills__desc-title Чем я могу быть полезен вам
+              .skills__desc-text
+                p Этот сайт я сделал в рамках обучения в Школе онлайн образования LoftSchool. Чуть позже я освежу в нём свой контент. А пока посмотрите, как тут всё классно и красиво!
+            #skills__component
+      include template/components/work
+      .main
+        .triangles.triangles--rotate
+          svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__item.arrow
+            polygon(points="1000,0 1000,100 0,100")
+          svg(viewBox="0 0 1000 100" preserveAspectRatio="none").triangles__item.arrow
+            polygon(points="0,0 0,100 1000,100")
+        include template/components/parallax-budda
+        include template/components/reviews
+        include template/components/form
+      include template/components/footer
+      
+
+  

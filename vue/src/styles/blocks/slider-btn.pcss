@@ -1,0 +1,37 @@
+.slider__arrow{
+
+	&-btn{
+		width: 50px;
+  	height: 50px;
+  	background: #353e4e;
+  	padding: 0;
+  	outline: none;
+  	border: none;
+
+  	&:hover{
+  		background-color: #5500f2;
+  		.slider__arrow-icon {
+      	opacity: 1;
+    	}
+  	}
+
+  	&--prev {
+    .slider__arrow-icon{
+      transform: rotate(90deg);
+    	}
+  	}
+
+  	&--next {
+    	.slider__arrow-icon {
+      	transform: rotate(-90deg);
+   		}
+  	}
+	}
+}
+
+.slider__arrow-icon {
+  width: 10px;
+  height: 8px;
+  opacity: .3;
+  fill: white;
+}

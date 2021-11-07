@@ -1,0 +1,145 @@
+.form{
+  max-width: 870px;
+}
+
+.form__container {
+  @include tablets {
+    font-size: 14px;
+  }
+}
+.form__row {
+  display: flex;
+  margin-bottom: 35px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @include phones {
+    flex-direction: column;
+    margin-bottom: 50px;
+  }
+
+  &--more-margin {
+    margin-bottom: 50px;
+    @include tablets {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.form__block {
+  flex: 1;
+  margin-right: 90px;
+  border-bottom: 1px solid currentColor;
+  position: relative;
+
+  &.error .error-tooltip{
+    display: block;
+    opacity: 1;
+    left: 50px;
+    transition: 0.2s ease-in-out all;
+  }
+
+  &.error .form__block-icon {
+    fill: red;
+    transition: 0.2s ease-in-out all;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $main;
+
+    .form__block-icon {
+      fill: $main;
+      opacity: 1;
+    }
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  
+  @include tablets {
+    margin-right: 20px;
+  }
+  
+  @include phones {
+    margin-right: 0;
+    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.form__block-label {
+  opacity: .3;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-left: 45px;
+  
+  @include phones {
+    margin-bottom: 15px;
+  }
+}
+
+.form__block-wrap {
+  display: flex;
+  align-items: center;
+  padding-bottom: 15px;
+
+  &--align-top {
+    align-items: flex-start;
+  }
+
+  &:focus-within {
+    outline: rgb(77, 144, 254) auto 0.0625em;
+  }
+}
+
+.form__block-icon {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+  opacity: .3;
+  margin-right: 15px;
+}
+
+.form__block-field {
+  flex: 1;
+}
+
+.form__block-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+
+  @include tablets {
+    font-size: 14px;
+  }
+}
+
+
+.form__block-textarea {
+  resize: none;
+  line-height: 1.25;
+}
+
+::placeholder {
+  color: $text-color;
+  @include tablets {
+    font-size: 14px;
+  }
+}
+
+.form__buttons {
+  @include tablets {
+    margin: 0 auto;
+  }
+}

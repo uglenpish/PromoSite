@@ -1,0 +1,15 @@
+heder.heder 
+  .heder__logo
+    .logo СД
+  .heder__menu
+    +navigation
+  .heder__socials
+    +socials
+    button(type="button").nav__btn
+      +icon('menu', 'nav__gam-icon')
+  .header__gam-menu
+    button(type="button").nav__close.gam-menu__close
+      +icon('remove', 'nav__close-icon')
+    .gam__menu-nav
+      +navigation
+      +socials

@@ -1,0 +1,65 @@
+.parallax-buddha {
+   position: absolute;
+   overflow: hidden;
+   width: 100%;
+   height: 100%;
+   min-height: 1400px;
+   z-index: -1;
+
+   @include phones{
+      display: none;
+   }
+}
+
+.parallax__image {
+   position: relative;
+   width: 100%;
+   height: 100%;
+}
+
+.parallax__layer {
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+}
+.parallax__bg {
+   position: absolute;
+   object-fit: cover;
+   width: 100%;
+   height: 100%;
+}
+.parallax__mount {
+   position: absolute;
+   object-fit: cover;
+   height: 100%;
+   width: 100%;
+   bottom: 11%;
+}
+.parallax__buddha {
+   position: absolute;
+   margin-left: 3%;
+   min-width: 700px;
+   left: 50%;
+   top: -120%;
+}
+.parallax__cloud {
+   position: absolute;
+   min-width: 1500px;
+   height: 50rem;
+   bottom: 236%;
+   left: 0;
+}
+.parallax__cloudmid {
+   position: absolute;
+   min-width: 1500px;
+   height: 41rem;
+   bottom: 346%;
+   right: 0;
+}
+
+.parallax__cloudback{
+   position: absolute;
+   left: 0;
+   bottom: 437%;
+}

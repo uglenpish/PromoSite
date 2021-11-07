@@ -1,0 +1,37 @@
+.user{
+	display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+
+  @include phones{
+    align-items: center;
+  }
+
+  &__avatar{
+  	margin-bottom: 70px;
+  }  
+
+  &__desc{
+   @include tablets{
+      width: 100%; 
+    }
+  }
+
+  &__desc-item{
+  	display: flex;
+    width: 100%;
+  	
+    .user__key{
+			width: 120px;
+      
+      @include phones{
+        width: 50%;
+      } 
+  	}
+
+  	.user__value{
+			font-weight: 600;
+  	}
+  }
+}

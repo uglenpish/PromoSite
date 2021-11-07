@@ -1,0 +1,21 @@
+mixin icon(name, className)
+  - var icon = require(`images/icons/${name}.svg`);
+  svg(class=className viewBox=icon.viewBox preserveAspectRatio="none")
+    use(xlink:href=icon.url)
+
+mixin image(path, className)
+  img(src=require(`images/${path}`) class=className)
+
+mixin socials
+  ul.socials__list
+    each icon in icons
+      li.socials__item
+        a(href='#').socials__link
+          +icon(`${icon}`, 'socials__icon')
+
+mixin navigation
+  nav.nav
+    ul.nav__list
+      each item in menu
+        li.nav__item
+          a(href='#').nav__link=item

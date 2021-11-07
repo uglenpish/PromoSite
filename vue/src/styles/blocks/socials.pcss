@@ -1,0 +1,36 @@
+.socials__list{
+	display: flex;
+
+	@include tablets{
+		margin-right: 84px;
+	}
+
+	.socials__item{
+		margin-right: 35px;
+		&:last-child{
+			margin-right: 0;	
+		}
+	}
+}
+
+.socials__link{
+	width: 31px;
+	height: 25px;
+	display: block;
+	
+	&:hover{
+		color: $main;
+	}
+
+	.socials__icon{
+		width: 100%;
+		height: 100%;
+		fill: currentColor;
+	}
+}
+
+.footer__socials{
+	.socials__icon{
+		
+	}
+}

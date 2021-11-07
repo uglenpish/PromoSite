@@ -1,0 +1,46 @@
+.triangles--section {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+.triangles {
+   display: flex;
+   color: #fff;
+}
+.triangles__item {
+   width: 50%;
+   height: 125px;
+}
+
+.arrow {
+   fill: currentColor;
+}
+
+&__arrow {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      transform: rotate(180deg);
+
+      .arrow-section__item {
+         height: 96px;
+
+         @include tablets {
+            height: 75px;
+         }
+      
+         @include phones {
+            height: 50px;
+         }
+      }
+   }
+.triangles--rotate{
+  position: absolute;
+  left: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
