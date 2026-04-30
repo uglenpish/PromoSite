@@ -71,9 +71,8 @@ import AppCard from "@/admin/components/AppCard.vue";
 import EmptyState from "@/admin/components/EmptyState.vue";
 import FileField from "@/admin/components/FileField.vue";
 import FormField from "@/admin/components/FormField.vue";
-import { reviewsApi } from "@/admin/api/reviews";
-
-const API_ORIGIN = (import.meta.env.VITE_API_ORIGIN || "http://localhost:3000").replace(/\/$/, "");
+import { resolveMediaUrl } from "@/api/helpers/media";
+import { reviewsApi } from "@/api/modules/reviews";
 
 const items = ref([]);
 const editingId = ref(null);
@@ -104,10 +103,6 @@ function createPayload() {
   }
 
   return payload;
-}
-
-function resolveMediaUrl(path) {
-  return `${API_ORIGIN}${path}`;
 }
 
 async function loadItems() {

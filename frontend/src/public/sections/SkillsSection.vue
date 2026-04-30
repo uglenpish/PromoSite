@@ -11,7 +11,7 @@ section#skills.skills
       .skills__values
         .skills__values-container
           ul.skills__list
-            li.skills__row(v-for="category in skills" :key="category.title")
+            li.skills__row(v-for="category in skillsStore.skills" :key="category.title")
               .skills__row-items
                 h3.skills__row-title {{ category.title }}
                 ul.skills__row-list
@@ -21,16 +21,14 @@ section#skills.skills
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { publicApi } from "@/api/public";
+import { skillsApi } from "@/api/modules/skills";
 import SkillChart from "@/public/sections/SkillChart.vue";
 import { images } from "@/public/data/assets";
 
-const skills = ref([]);
+import { useSkillsStore } from "../../stores/skills";
+const skillsStore = useSkillsStore();
 
-async function loadSkills() {
-  const { data } = await publicApi.getSkillGroups();
-  skills.value = data.items;
-}
-
-onMounted(loadSkills);
+onMounted(() => {
+  skillsStore.loadSkills();
+});
 </script>

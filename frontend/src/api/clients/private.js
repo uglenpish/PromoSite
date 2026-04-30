@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const http = axios.create({
+const privateHttp = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
   withCredentials: false
 });
 
-http.interceptors.request.use((config) => {
+privateHttp.interceptors.request.use((config) => {
   const token = localStorage.getItem("promo_admin_token");
 
   if (token) {
@@ -15,4 +15,4 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
-export default http;
+export default privateHttp;

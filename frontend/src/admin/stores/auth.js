@@ -1,6 +1,6 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
-import { authApi } from "@/admin/api/auth";
+import { authApi } from "@/api/modules/auth";
 
 const TOKEN_KEY = "promo_admin_token";
 const ADMIN_KEY = "promo_admin_profile";

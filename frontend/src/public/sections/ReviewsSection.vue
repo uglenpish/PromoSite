@@ -33,7 +33,8 @@ section#reviews.review
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { publicApi, resolveMediaUrl } from "@/api/public";
+import { resolveMediaUrl } from "@/api/helpers/media";
+import { reviewsApi } from "@/api/modules/reviews";
 import AppIcon from "@/public/components/AppIcon.vue";
 import { images } from "@/public/data/assets";
 
@@ -57,7 +58,7 @@ function previous() {
 }
 
 async function loadReviews() {
-  const { data } = await publicApi.getReviews();
+  const { data } = await reviewsApi.getAll();
 
   reviews.value = data.items.map((item) => ({
     ...item,

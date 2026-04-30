@@ -43,7 +43,8 @@ section#works.work
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { publicApi, resolveMediaUrl } from "@/api/public";
+import { resolveMediaUrl } from "@/api/helpers/media";
+import { worksApi } from "@/api/modules/works";
 import AppIcon from "@/public/components/AppIcon.vue";
 import { images } from "@/public/data/assets";
 
@@ -73,7 +74,7 @@ function goToSlide(id) {
 }
 
 async function loadWorks() {
-  const { data } = await publicApi.getWorks();
+  const { data } = await worksApi.getAll();
 
   works.value = data.items.map((item, index) => ({
     ...item,

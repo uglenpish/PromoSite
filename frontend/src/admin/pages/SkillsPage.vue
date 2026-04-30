@@ -23,7 +23,7 @@
       />
 
       <div v-else class="entity-stack">
-        <article class="entity-card" v-for="group in groups" :key="group.id">
+        <article class="entity-card" v-for="group in skillsStore.skills" :key="group.id">
           <div class="entity-card__head">
             <div>
               <h4>{{ group.title }}</h4>
@@ -66,7 +66,10 @@ import { onMounted, reactive, ref } from "vue";
 import AppCard from "@/admin/components/AppCard.vue";
 import EmptyState from "@/admin/components/EmptyState.vue";
 import FormField from "@/admin/components/FormField.vue";
-import { skillsApi } from "@/admin/api/skills";
+import { skillsApi } from "@/api/modules/skills";
+
+import { useSkillsStore } from "../../stores/skills";
+const skillsStore = useSkillsStore();
 
 const groups = ref([]);
 const groupForm = reactive({
@@ -84,9 +87,11 @@ function ensureSkillForm(groupId) {
 }
 
 async function loadGroups() {
-  const { data } = await skillsApi.getGroups();
-  groups.value = data.items;
-  groups.value.forEach((group) => ensureSkillForm(group.id));
+  await skillsStore.loadSkills();
+
+  skillsStore.skills.forEach((group) => {
+    ensureSkillForm(group.id);
+  });
 }
 
 async function createGroup() {
@@ -130,5 +135,5 @@ async function removeSkill(id) {
   await loadGroups();
 }
 
-onMounted(loadGroups);
+onMounted(getGroups);
 </script>
