@@ -9,6 +9,7 @@ import { authRouter } from "./routes/auth.routes.js";
 import { reviewsRouter } from "./routes/reviews.routes.js";
 import { skillsRouter } from "./routes/skills.routes.js";
 import { worksRouter } from "./routes/works.routes.js";
+import { profileRouter } from "./routes/profile.routes.js";
 import { env } from "./config/env.js";
 import { ensureUploadDirectories } from "./utils/files.js";
 
@@ -59,6 +60,7 @@ app.use("/api/auth", authRouter);
 app.use("/api", skillsRouter);
 app.use("/api", worksRouter);
 app.use("/api", reviewsRouter);
+app.use("/api", profileRouter);
 
 app.use(
   express.static(frontendDistPath, {

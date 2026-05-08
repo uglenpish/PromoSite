@@ -20,12 +20,11 @@ section#skills.skills
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { skillsApi } from "@/api/modules/skills";
+import { onMounted } from "vue";
 import SkillChart from "@/public/sections/SkillChart.vue";
 import { images } from "@/public/data/assets";
 
-import { useSkillsStore } from "../../stores/skills";
+import { useSkillsStore } from "../../stores/skillsStore";
 const skillsStore = useSkillsStore();
 
 onMounted(() => {

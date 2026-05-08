@@ -44,12 +44,22 @@ section#works.work
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { resolveMediaUrl } from "@/api/helpers/media";
-import { worksApi } from "@/api/modules/works";
 import AppIcon from "@/public/components/AppIcon.vue";
 import { images } from "@/public/data/assets";
+import { useWorksStore } from "@/stores/worksStore";
 
-const works = ref([]);
+const worksStore = useWorksStore();
 const currentIndex = ref(0);
+
+const works = computed(() =>
+  worksStore.works.map((item, index) => ({
+    ...item,
+    desc: item.description,
+    photo: item.imageUrl
+      ? resolveMediaUrl(item.imageUrl)
+      : images.worksFallback[index % images.worksFallback.length]
+  }))
+);
 
 const currentWork = computed(() => works.value[currentIndex.value] || null);
 const reverseWorks = computed(() => [...works.value].reverse());
@@ -74,16 +84,7 @@ function goToSlide(id) {
 }
 
 async function loadWorks() {
-  const { data } = await worksApi.getAll();
-
-  works.value = data.items.map((item, index) => ({
-    ...item,
-    desc: item.description,
-    photo: item.imageUrl
-      ? resolveMediaUrl(item.imageUrl)
-      : images.worksFallback[index % images.worksFallback.length]
-  }));
-
+  await worksStore.loadWorks();
   currentIndex.value = 0;
 }
 

@@ -1,7 +1,7 @@
 <template lang="pug">
 .parallax-buddha
   .parallax__image(ref="parallaxRoot")
-    .parallax__layer(data-speed="0.1")
+    .parallax__layer(data-speed="0")
       img.parallax__bg(:src="images.buddhaBackground" alt="")
     .parallax__layer(data-speed="0.15")
       img.parallax__mount(:src="images.buddhaMount" alt="")
@@ -9,7 +9,7 @@
       img.parallax__buddha(:src="images.buddha" alt="")
     .parallax__layer(data-speed="0.15")
       img.parallax__cloud(:src="images.cloudFront" alt="")
-    .parallax__layer(data-speed="0.15")
+    .parallax__layer(data-speed="0.12")
       img.parallax__cloudmid(:src="images.cloudMiddle" alt="")
     .parallax__layer(data-speed="0.15")
       img.parallax__cloudback(:src="images.cloudBack" alt="")

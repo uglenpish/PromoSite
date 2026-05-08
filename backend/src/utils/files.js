@@ -10,7 +10,8 @@ export function ensureUploadDirectories() {
   const directories = [
     uploadsRoot,
     path.join(uploadsRoot, "works"),
-    path.join(uploadsRoot, "reviews")
+    path.join(uploadsRoot, "reviews"),
+    path.join(uploadsRoot, "profiles")
   ];
 
   directories.forEach((directory) => {

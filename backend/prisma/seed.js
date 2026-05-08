@@ -14,10 +14,19 @@ async function main() {
     where: {
       email: "admin@example.com"
     },
-    update: {},
+    update: {
+      firstName: "Дмитрий",
+      lastName: "Стерлин",
+      birthDate: new Date("1986-02-25"),
+      bio: "Я занимаюсь разработкой современных сайтов и приложений.\nМне нравится делать интересные и современные проекты."
+    },
     create: {
       email: "admin@example.com",
-      passwordHash
+      passwordHash,
+      firstName: "Дмитрий",
+      lastName: "Стерлин",
+      birthDate: new Date("1986-02-25"),
+      bio: "Я занимаюсь разработкой современных сайтов и приложений.\nМне нравится делать интересные и современные проекты."
     }
   });
 

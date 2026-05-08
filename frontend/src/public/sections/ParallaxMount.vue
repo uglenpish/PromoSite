@@ -13,7 +13,7 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
 const root = ref(null);
-const factors = [350, 250, 150, 60, 250, 250, 300];
+const speeds = [0.12, 0.2, 0.38, 0.58, 0.26, 0.18, 0.3];
 
 function handleScroll() {
   const scrollTop = window.pageYOffset;
@@ -24,9 +24,8 @@ function handleScroll() {
       return;
     }
 
-    const offset = `${scrollTop / -factors[index]}%`;
-    layer.style.top = offset;
-    layer.style.transform = `translate3d(0, ${offset}, 0)`;
+    const offset = scrollTop * speeds[index];
+    layer.style.transform = `translate3d(0, ${-offset}px, 0)`;
   });
 }
 

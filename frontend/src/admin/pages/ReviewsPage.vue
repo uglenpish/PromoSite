@@ -31,13 +31,17 @@
       </template>
 
       <EmptyState
-        v-if="!items.length"
+        v-if="!reviewsStore.reviews.length"
         title="Отзывы не найдены"
         description="После добавления отзыва он появится в этом списке."
       />
 
       <div v-else class="entity-stack">
-        <article class="entity-card entity-card--media" v-for="item in items" :key="item.id">
+        <article
+          class="entity-card entity-card--media"
+          v-for="item in reviewsStore.reviews"
+          :key="item.id"
+        >
           <img
             v-if="item.avatarUrl"
             class="entity-card__avatar"
@@ -72,9 +76,9 @@ import EmptyState from "@/admin/components/EmptyState.vue";
 import FileField from "@/admin/components/FileField.vue";
 import FormField from "@/admin/components/FormField.vue";
 import { resolveMediaUrl } from "@/api/helpers/media";
-import { reviewsApi } from "@/api/modules/reviews";
+import { useReviewsStore } from "@/stores/reviewsStore";
 
-const items = ref([]);
+const reviewsStore = useReviewsStore();
 const editingId = ref(null);
 const form = reactive(getDefaultForm());
 
@@ -106,21 +110,19 @@ function createPayload() {
 }
 
 async function loadItems() {
-  const { data } = await reviewsApi.getAll();
-  items.value = data.items;
+  await reviewsStore.loadReviews();
 }
 
 async function submitForm() {
   const payload = createPayload();
 
   if (editingId.value) {
-    await reviewsApi.update(editingId.value, payload);
+    await reviewsStore.updateReview(editingId.value, payload);
   } else {
-    await reviewsApi.create(payload);
+    await reviewsStore.createReview(payload);
   }
 
   resetForm();
-  await loadItems();
 }
 
 function startEdit(item) {
@@ -132,11 +134,10 @@ function startEdit(item) {
 }
 
 async function removeItem(id) {
-  await reviewsApi.delete(id);
+  await reviewsStore.deleteReview(id);
   if (editingId.value === id) {
     resetForm();
   }
-  await loadItems();
 }
 
 onMounted(loadItems);

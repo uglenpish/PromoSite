@@ -1,4 +1,5 @@
 import multer from "multer";
+import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
@@ -11,7 +12,9 @@ const uploadsRoot = path.resolve(__dirname, "../../uploads");
 function createStorage(folder) {
   return multer.diskStorage({
     destination(request, file, callback) {
-      callback(null, path.join(uploadsRoot, folder));
+      const directory = path.join(uploadsRoot, folder);
+      fs.mkdirSync(directory, { recursive: true });
+      callback(null, directory);
     },
     filename(request, file, callback) {
       const extension = path.extname(file.originalname);
@@ -36,5 +39,10 @@ export const uploadWorkImage = multer({
 
 export const uploadReviewAvatar = multer({
   storage: createStorage("reviews"),
+  fileFilter: imageFilter
+});
+
+export const uploadProfilePhoto = multer({
+  storage: createStorage("profiles"),
   fileFilter: imageFilter
 });

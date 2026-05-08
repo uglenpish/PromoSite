@@ -22,23 +22,69 @@
     </AppCard>
 
     <AppCard>
-      <form action="">
-        <FormField v-model="form.firestName" label="Email" type="text" placeholder="Имя" />
-        <FormField v-model="form.lastName" label="Пароль" type="text" placeholder="Фамилия" />
-        <FormField v-model="form.birthday" label="Пароль" type="text" placeholder="Дата рождения" />
-      </form>
+      <template #title>
+        <h3>Секция «Обо мне»</h3>
+      </template>
+
+      <ProfileForm v-model:form="form" :loading="profileStore.loading" @submit="submitForm" />
     </AppCard>
   </section>
 </template>
 
 <script setup>
-  import AppCard from "@/admin/components/AppCard.vue";
-  import FormField from "@/admin/components/FormField.vue";
-  import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
+import AppCard from "@/admin/components/AppCard.vue";
+import ProfileForm from "@/admin/components/ProfileForm.vue";
+import { useProfileStore } from "@/stores/profileStore";
 
-  const form = reactive({
-    firestName: "",
+const profileStore = useProfileStore();
+const form = reactive(getDefaultForm());
+
+function getDefaultForm() {
+  return {
+    firstName: "",
     lastName: "",
-    birthday: "",
+    birthDate: "",
+    bio: "",
+    photo: null
+  };
+}
+
+function fillForm(profile) {
+  Object.assign(form, {
+    firstName: profile?.firstName || "",
+    lastName: profile?.lastName || "",
+    birthDate: profile?.birthDate || "",
+    bio: profile?.bio || "",
+    photo: null
   });
+}
+
+function createPayload() {
+  const payload = new FormData();
+  payload.append("firstName", form.firstName);
+  payload.append("lastName", form.lastName);
+  payload.append("birthDate", form.birthDate);
+  payload.append("bio", form.bio);
+
+  if (form.photo instanceof File) {
+    payload.append("photo", form.photo);
+  }
+
+  return payload;
+}
+
+async function submitForm() {
+  try {
+    const profile = await profileStore.updateProfile(createPayload());
+    fillForm(profile);
+  } catch (error) {
+    console.error("Не удалось сохранить профиль", error);
+  }
+}
+
+onMounted(async () => {
+  const profile = await profileStore.loadAdminProfile();
+  fillForm(profile);
+});
 </script>

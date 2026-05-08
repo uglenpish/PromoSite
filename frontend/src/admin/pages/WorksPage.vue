@@ -37,13 +37,17 @@
       </template>
 
       <EmptyState
-        v-if="!items.length"
+        v-if="!worksStore.works.length"
         title="Работы не найдены"
         description="После добавления работы она появится в этом списке."
       />
 
       <div v-else class="entity-stack">
-        <article class="entity-card entity-card--media" v-for="item in items" :key="item.id">
+        <article
+          class="entity-card entity-card--media"
+          v-for="item in worksStore.works"
+          :key="item.id"
+        >
           <img
             v-if="item.imageUrl"
             class="entity-card__preview"
@@ -81,9 +85,9 @@ import EmptyState from "@/admin/components/EmptyState.vue";
 import FileField from "@/admin/components/FileField.vue";
 import FormField from "@/admin/components/FormField.vue";
 import { resolveMediaUrl } from "@/api/helpers/media";
-import { worksApi } from "@/api/modules/works";
+import { useWorksStore } from "@/stores/worksStore";
 
-const items = ref([]);
+const worksStore = useWorksStore();
 const editingId = ref(null);
 const form = reactive(getDefaultForm());
 
@@ -117,21 +121,19 @@ function createPayload() {
 }
 
 async function loadItems() {
-  const { data } = await worksApi.getAll();
-  items.value = data.items;
+  await worksStore.loadWorks();
 }
 
 async function submitForm() {
   const payload = createPayload();
 
   if (editingId.value) {
-    await worksApi.update(editingId.value, payload);
+    await worksStore.updateWork(editingId.value, payload);
   } else {
-    await worksApi.create(payload);
+    await worksStore.createWork(payload);
   }
 
   resetForm();
-  await loadItems();
 }
 
 function startEdit(item) {
@@ -144,11 +146,10 @@ function startEdit(item) {
 }
 
 async function removeItem(id) {
-  await worksApi.delete(id);
+  await worksStore.deleteWork(id);
   if (editingId.value === id) {
     resetForm();
   }
-  await loadItems();
 }
 
 onMounted(loadItems);

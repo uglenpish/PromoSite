@@ -17,7 +17,7 @@
       </template>
 
       <EmptyState
-        v-if="!groups.length"
+        v-if="!skillsStore.skills.length"
         title="Пока нет групп"
         description="Создайте первую группу навыков для блока «Обо мне»."
       />
@@ -62,16 +62,14 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive } from "vue";
 import AppCard from "@/admin/components/AppCard.vue";
 import EmptyState from "@/admin/components/EmptyState.vue";
 import FormField from "@/admin/components/FormField.vue";
-import { skillsApi } from "@/api/modules/skills";
+import { useSkillsStore } from "../../stores/skillsStore";
 
-import { useSkillsStore } from "../../stores/skills";
 const skillsStore = useSkillsStore();
 
-const groups = ref([]);
 const groupForm = reactive({
   title: ""
 });
@@ -86,12 +84,8 @@ function ensureSkillForm(groupId) {
   }
 }
 
-async function loadGroups() {
-  await skillsStore.loadSkills();
-
-  skillsStore.skills.forEach((group) => {
-    ensureSkillForm(group.id);
-  });
+function initForms() {
+  skillsStore.skills.forEach((group) => ensureSkillForm(group.id));
 }
 
 async function createGroup() {
@@ -99,14 +93,14 @@ async function createGroup() {
     return;
   }
 
-  await skillsApi.createGroup({ title: groupForm.title.trim() });
+  await skillsStore.createGroup(groupForm.title.trim());
   groupForm.title = "";
-  await loadGroups();
+  initForms();
 }
 
 async function removeGroup(id) {
-  await skillsApi.deleteGroup(id);
-  await loadGroups();
+  await skillsStore.deleteGroup(id);
+  initForms();
 }
 
 async function createSkill(groupId) {
@@ -117,23 +111,20 @@ async function createSkill(groupId) {
     return;
   }
 
-  await skillsApi.createSkill(groupId, {
-    title: form.title.trim(),
-    percent: Number(form.percent)
-  });
+  await skillsStore.createSkill(groupId, form.title.trim(), form.percent);
 
   skillForms[groupId] = {
     title: "",
     percent: ""
   };
-
-  await loadGroups();
 }
 
 async function removeSkill(id) {
-  await skillsApi.deleteSkill(id);
-  await loadGroups();
+  await skillsStore.deleteSkill(id);
 }
 
-onMounted(getGroups);
+onMounted(async () => {
+  await skillsStore.loadSkills();
+  initForms();
+});
 </script>

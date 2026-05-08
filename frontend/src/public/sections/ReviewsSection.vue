@@ -34,12 +34,21 @@ section#reviews.review
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { resolveMediaUrl } from "@/api/helpers/media";
-import { reviewsApi } from "@/api/modules/reviews";
 import AppIcon from "@/public/components/AppIcon.vue";
 import { images } from "@/public/data/assets";
+import { useReviewsStore } from "@/stores/reviewsStore";
 
-const reviews = ref([]);
+const reviewsStore = useReviewsStore();
 const currentIndex = ref(0);
+const reviews = computed(() =>
+  reviewsStore.reviews.map((item) => ({
+    ...item,
+    avatar: item.avatarUrl ? resolveMediaUrl(item.avatarUrl) : images.user,
+    massege: item.message,
+    rang: item.role
+  }))
+);
+
 const visibleReviews = computed(() => {
   const currentReview = reviews.value[currentIndex.value];
   return currentReview ? [currentReview] : [];
@@ -58,15 +67,7 @@ function previous() {
 }
 
 async function loadReviews() {
-  const { data } = await reviewsApi.getAll();
-
-  reviews.value = data.items.map((item) => ({
-    ...item,
-    avatar: item.avatarUrl ? resolveMediaUrl(item.avatarUrl) : images.user,
-    massege: item.message,
-    rang: item.role
-  }));
-
+  await reviewsStore.loadReviews();
   currentIndex.value = 0;
 }
 
