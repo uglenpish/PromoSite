@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # Local analysis notes
 RECOMMENDATIONS.md
+BACKEND_ARCHITECTURE.md
+CONTACT_ENTITY_WORKFLOW.md
